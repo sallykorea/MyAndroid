@@ -1,0 +1,2 @@
+include ':app', ':hello2', ':step01layout', ':step02activity', ':step03listview', ':practice', ':step04customlist'
+rootProject.name='MyAndroid'
