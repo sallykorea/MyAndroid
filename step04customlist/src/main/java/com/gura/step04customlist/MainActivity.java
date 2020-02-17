@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         adapter=new CountryAdapter(this, R.layout.listview_cell, countries);
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter); //adapter가 cell view를 공급해 준다.
         listView.setOnItemClickListener(this);
     }
 
