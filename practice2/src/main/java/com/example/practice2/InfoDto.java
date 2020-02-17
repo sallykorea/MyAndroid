@@ -1,24 +1,28 @@
 package com.example.practice2;
 
-public class InfoDto {
-    private int num;
+import java.io.Serializable;
+
+public class InfoDto implements Serializable {
+    private int resId;
     private String name;
+    private String addr;
     private String digit;
 
     public InfoDto(){}
 
-    public InfoDto(int num, String name, String digit) {
-        this.num = num;
+    public InfoDto(int resId, String name, String addr, String digit) {
+        this.resId = resId;
         this.name = name;
+        this.addr = addr;
         this.digit = digit;
     }
 
-    public int getNum() {
-        return num;
+    public int getResId() {
+        return resId;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setResId(int resId) {
+        this.resId = resId;
     }
 
     public String getName() {
@@ -27,6 +31,14 @@ public class InfoDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
     }
 
     public String getDigit() {
