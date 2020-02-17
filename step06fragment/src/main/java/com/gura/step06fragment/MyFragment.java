@@ -31,6 +31,9 @@ public class MyFragment extends Fragment implements View.OnTouchListener {
        - 화면의 특정 부분을 Fragment에 맡길 수 있다.
        - 코드의 재사용성이 좋아진다.
        - 단, fragment 단독으로는 존재할 수 없다. activity 안에서 존재해야한다.
+       - fragment 자체가 view는 아니다. 단지, view를 갖고 있는 객체이다.
+         따라서 findByView() 메소드로 fragment의 참조값을 갖고 올 수 없다.
+
        - 예시) 웹페이지에서 이미지 슬라이더
 
        [Fragment 만드는 법]
@@ -49,7 +52,7 @@ public class MyFragment extends Fragment implements View.OnTouchListener {
         textView.setOnTouchListener(this);
 
         /*
-            [ fragment에서 activity를 참조하는 경우]
+            [ fragment에서 activity의 참조값이 필요한 경우]
 
             만약, activity에서 fragment를 참조하는 것이 아니라
             fragment에서 activity를 참조 하고 싶다면 어떻게 해야될까?
