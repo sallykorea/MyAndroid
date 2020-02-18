@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         //ViewPager 객체의 참조값 얻어오기(ViewPager에 fragment를 하나씩 공급해준다.)
         ViewPager viewPager = findViewById(R.id.view_pager);
         //ViewPager 에 PagerAdapter 객체 연결하기
-        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setAdapter(sectionsPagerAdapter);  //sectionsPagerAdapter에 overide 되어 있는 메소드를 필요할때 호출한다.
 
         //Tab 레이아웃 객체의 참조값 얻어오기
         TabLayout tabs = findViewById(R.id.tabs);
