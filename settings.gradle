@@ -1,2 +1,2 @@
-include ':app', ':hello2', ':step01layout', ':step02activity', ':step03listview', ':practice', ':step04customlist', ':practice2'
+include ':app', ':hello2', ':step01layout', ':step02activity', ':step03listview', ':step04customlist', ':step05asynctask', ':step06fragment', ':step06fragment2', ':step07customview', ':beer', ':drawpanel', ':step08webview', ':step09camera', ':step10broadcastreceiver'
 rootProject.name='MyAndroid'

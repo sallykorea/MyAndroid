@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
             즉, 비동기 방식으로 스레드가 진행되어야한다.
             비동기 방식으로 프로그래밍을 할 수 있도록 Android OS에서 AsyncTask 클래스를 제공해준다.
-
-
          */
 
         //비동기 작업의 시작은 객체를 생성하고
@@ -114,9 +112,11 @@ public class MainActivity extends AppCompatActivity {
                     다른 UI에서 어떤 작업을 하는 중에 AsyncTask를 상속받은 클래스에서 진행이 어떻게 되어가고 있는지
                     사용자에게 UI로 표시 해주고 싶은 경우,
                     1. publishProgress() 메소드를 호출하면서 인자를 전달하고,
-                    2. UI Thread를 잠깐 끌고 오늘 메소드인 onProgressUpdate() 메소드를 override해서 publishProgress()로 부터 인자를 전달받는다.
+                    2. UI Thread를 잠깐 끌고 오는 메소드인 onProgressUpdate() 메소드를 override해서 publishProgress()로 부터 인자를 전달받는다.
+                       publishProgress() 메소드를 호출하면 onProgressUpdate() 메소드가 간접적으로 호출된다.
                 */
                 publishProgress(count);
+
             }
             String result="숫자 세기 성공";
             return result;

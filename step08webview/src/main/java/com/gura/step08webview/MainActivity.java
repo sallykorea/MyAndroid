@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new MyWebViewClient());
         //url 로딩 시키기
-        webView.loadUrl("http://192.168.0.35:8865/spring05/");
+        webView.loadUrl("http://192.168.0.35:8811/exhibition/");
     }
 
     //클래스 정의

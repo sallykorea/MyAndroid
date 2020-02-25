@@ -17,7 +17,7 @@ public class CountryAdapter extends BaseAdapter {
     private List<CountryDto> list;
     private LayoutInflater inflater; //레이아웃 전개자 객체의 참조값이 담길 field
 
-    //생성자
+    //생성자(마음대로 만들 수 있음)
     public CountryAdapter(Context context, int layoutRes, List<CountryDto> list){
         this.context=context;
         this.layoutRes=layoutRes;
@@ -26,6 +26,7 @@ public class CountryAdapter extends BaseAdapter {
             [레이아웃 전개자 객체]
             xml 로 정의한 레이아웃 정보를 실제로 전개해서
             View 객체로 만들어 주는 객체 (View를 만들어야 화면에 보이게 할 수 있다.)
+            (화면 설계(.xml)를 바탕으로 실제 화면에 출력할 수 있는 view 객체를 생성하는 역할을 한다.)
          */
         inflater=LayoutInflater.from(context);
     }
@@ -46,7 +47,8 @@ public class CountryAdapter extends BaseAdapter {
         return list.get(i);
     }
 
-    // i index에 해당하는 아이템(data)의 id가 있으면 리턴해 준다.
+    // i index에 해당하는 아이템(data)의 id가 있으면 리턴해 준다.(주로 이벤트 처리할때 사용되는 메소드 이다.)
+    // ex) DB에 있는 data 에 primary key가 적용된 경우
     @Override
     public long getItemId(int i) {
         return i;

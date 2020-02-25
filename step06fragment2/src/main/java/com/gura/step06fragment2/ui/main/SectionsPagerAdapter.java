@@ -9,28 +9,30 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.gura.step06fragment2.CountryDto;
 import com.gura.step06fragment2.R;
+
+import java.util.List;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
-    private int[] imgs={R.drawable.israel, R.drawable.italy, R.drawable.japan, R.drawable.korea, R.drawable.poland};
-    private final Context mContext;
+   private List<CountryDto> countries;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public SectionsPagerAdapter(List<CountryDto> countries, FragmentManager fm) {
         super(fm);
-        mContext = context;
+        this.countries = countries;
     }
 
     //인자로 전달하는 인덱스에 해당하는 fragment 객체의 참조값을 리턴해주는 메소드
     @Override
     public Fragment getItem(int position) {
         //position 인덱스에 해당하는 이미지 리소스 아이디
-        int resId=imgs[position];
+        CountryDto dto=countries.get(position);
         //position 인덱스에 해당하는 fragment의 참조값 얻어내서
-        PlaceholderFragment fr=PlaceholderFragment.newInstance(resId);
+        PlaceholderFragment fr=PlaceholderFragment.newInstance(dto);
         //리턴해주기
         return fr; // 한줄로 작성 : PlaceholderFragment.newInstance(imgs[position]);
     }
@@ -39,7 +41,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        String title=Integer.toString(position+1);
+       String title=countries.get(position).getName();
 
         return title;
     }
@@ -48,6 +50,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 5 total pages.
-        return 5;
+        return countries.size();
     }
 }

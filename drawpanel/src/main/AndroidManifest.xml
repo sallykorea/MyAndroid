@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gura.drawpanel">
+    <!--
+        [외부 저장 장치(SDcard)를 사용할 수 있는 허가 얻기]
+
+        돈이 들거나, 개인정보, 베터리가 많이 드는 경우, 연락처 정보, 저장장치 접근, 위치정보가 필요한 경우 등
+
+        1. 이 문서에 명시를 해놓고,
+        2. 사용자가 설정을 해야 사용가능하다.
+
+        1,2 번 중 하나의 조건만 충족해도 되는 경우도 있다.
+    -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

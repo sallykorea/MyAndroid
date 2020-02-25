@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.gura.step06fragment2.CountryDto;
 import com.gura.step06fragment2.R;
 
 /**
@@ -27,25 +28,25 @@ import com.gura.step06fragment2.R;
 public class PlaceholderFragment extends Fragment {
 
     //Fragment 객체를 생성해서 리턴해주는 static 메소드(factory style method)
-    public static PlaceholderFragment newInstance(int resId) {
+    public static PlaceholderFragment newInstance(CountryDto dto) {
         PlaceholderFragment fr=new PlaceholderFragment();
 
         Bundle bundle=new Bundle();
-        bundle.putInt("resId", resId);
+        bundle.putSerializable("dto", dto);
         //Fragment 에 전달할 bundle 객체
         fr.setArguments(bundle);
         return fr;
     }
 
     //이미지 리소스 아이디를 담을 필드
-    private int resId;
+    private CountryDto dto;
 
     //1. fragment가 최초 사용될때 호출되는 메소드
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setArguments()로 frgment에 전달할 bundle객체를 넣어주면 getArguments()메소드로 읽어내야한다.
-        resId=getArguments().getInt("resId");
+        dto=(CountryDto)getArguments().getSerializable("dto");
 
     }
     //2. fragment가 활성화 될때마다 호출되는 메소드
@@ -56,7 +57,10 @@ public class PlaceholderFragment extends Fragment {
         // 이미지뷰의 참조값 얻어와서
         ImageView imageView=view.findViewById(R.id.imageView);
         // 이미지 출력하기
-        imageView.setImageResource(resId);
+        imageView.setImageResource(dto.getResId());
+
+        TextView textView=view.findViewById(R.id.textView);
+        textView.setText(dto.getName());
         //view 객체를 리턴해주기
         return view;
     }
