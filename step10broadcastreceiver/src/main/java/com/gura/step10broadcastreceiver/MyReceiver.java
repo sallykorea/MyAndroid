@@ -14,16 +14,13 @@ import android.widget.Toast;
     -
  */
 public class MyReceiver extends BroadcastReceiver {
-    //activity의 참조값을 담을 필드
-    private MainActivity activity;
-    //activity의 참조값을 필드에 저장하는 setter 메소드
-    public void setActivity(MainActivity activity) {
-        this.activity = activity;
-    }
 
     //특정 방송이 수신되면 호출되는 메소드
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        //context를 MainActivity type으로 casting
+        MainActivity activity=(MainActivity)context;
 
         boolean isOn=intent.getBooleanExtra("state", false);
         if(isOn){
