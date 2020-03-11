@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         // 1. Background에서 수행할 동작을 작성하는 method
         /*
             버튼을 여러번 누른다고 해서 새로운 Thread가 새로 동작하는 것은 아니다.
-            버튼이 클릭된 만큼 작업할 내용을 만들어 놓고 하나의 작업이
+            버튼이 클릭된 만큼 작업할 내용을 만들어 놓고 하나의 작업이 수행완료 된 뒤 다음 작업을 수행한다.
          */
         @Override
         protected String doInBackground(String... strings) {
