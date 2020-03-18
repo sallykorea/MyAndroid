@@ -1,15 +1,10 @@
 package com.gura.step16jsonparse;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 

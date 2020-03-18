@@ -1,4 +1,4 @@
-package com.gura.step16jsonparse;
+package com.gura.step09camera;
 
 import android.app.Activity;
 import android.content.Context;
@@ -256,6 +256,7 @@ public class Util {
                         }
                         //출력받은 문자열 전체 얻어내기
                         String str=builder.toString();
+
                         //아래 코드는 수행 불가
                         //console.setText(str);
                         //Map 객체에 결과 문자열을 담는다.
@@ -447,7 +448,8 @@ public class Util {
 
             return response;
         }
-    }
+    } //MultipartUtility class end
+
     //파일 업로드 처리
     public static void sendMultipartRequest
     (int requestId,

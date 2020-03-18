@@ -8,10 +8,12 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -28,12 +30,18 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
-        implements View.OnClickListener{
+        implements View.OnClickListener,
+        Util.RequestListener{
     //필드
     private ImageView imageView;
     private String absolutePath; //사진이 저장된 절대 경로
+
+    public static final int PICTURE_SAVED=0;
+    private Map<String, String> map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,25 +52,59 @@ public class MainActivity extends AppCompatActivity
         takePicBtn.setOnClickListener(this);
         //ImageView 의 참조값
         imageView=findViewById(R.id.imageView);
+
+        //업로드 버튼
+        Button uploadBtn=findViewById(R.id.uploadBtn);
+        uploadBtn.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.takePicBtn:
+                int permissionCheck=ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if(permissionCheck != PackageManager.PERMISSION_GRANTED){ //권한이 없다면
+                    //권한을 얻어야하는 퍼미션 목록
+                    String[] permissions={Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET};
+                    //권한을 얻어내도록 유도한다.
+                    ActivityCompat.requestPermissions(this, permissions, 0);
+                }else{//권한이 있다면
+                    requestTakePic();
+                }
+                break;
+            case R.id.uploadBtn:
+
+                uploadImage();
+
+                break;
+
+        }
+
+    }
+
+    //이미지 업로드 하기
+    public void uploadImage(){
+        String myFile = absolutePath;
+        Map<String,String> map = new HashMap<>();
+        map.put("writer", "gura");
+        String urlAddr ="http://192.168.0.26:8865/spring05/android/file/upload.do";
+        Util.sendMultipartRequest(0,urlAddr,map, myFile,MainActivity.this);
     }
 
     @Override
-    public void onClick(View view) {
-        int permissionCheck=
-                ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(permissionCheck != PackageManager.PERMISSION_GRANTED){ //권한이 없다면
-            //권한을 얻어야하는 퍼미션 목록
-            String[] permissions={Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            //권한을 얻어내도록 유도한다.
-            ActivityCompat.requestPermissions(this,
-                    permissions,
-                    0);
-        }else{//권한이 있다면
-            requestTakePic();
-        }
+    public void onSuccess(int requestId, Map<String, Object> result) {
+        String msg=(String)result.get("data");
+        Toast.makeText(this, "성공:"+msg, Toast.LENGTH_SHORT).show();
+
     }
-    //퍼미션을 체크 했을때ㅐ 호출되는 메소드
+
+    @Override
+    public void onFail(int requestId, Map<String, Object> result) {
+        String data=(String)result.get("data");
+        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+    }
+
+
+    //퍼미션을 체크 했을때 호출되는 메소드
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -70,6 +112,8 @@ public class MainActivity extends AppCompatActivity
             case 0: // 0 번 요청 코드인 경우
                 //퍼미션을 Allow 했을경우
                 if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                    requestTakePic();
+                }else if(grantResults[2]==PackageManager.PERMISSION_GRANTED){
                     requestTakePic();
                 }else{// Allow 하지 않았을 경우
                     Toast.makeText(this, "퍼미션을 체크해 주세요",
@@ -97,23 +141,25 @@ public class MainActivity extends AppCompatActivity
                 photoFile=new File(path+"/"+timeStamp+".jpg");
                 //절대 경로를 맴버필드에 저장한다.
                 absolutePath=photoFile.getAbsolutePath();
+                Log.i("absolutePath", absolutePath);
             }catch(Exception e){
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
             if(photoFile!=null){
                 //사진을 저장할 파일의 Uri 객체를 얻어온다.
                 Uri uri= FileProvider.getUriForFile(this, "com.gura.step09camera.fileprovider", photoFile);
-
                 Log.i("uri", uri.getPath());
                 //인텐트에 Uri 객체를 담고
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 //결과를 받아올수 있는 액티비티 시작 시키기
                 startActivityForResult(intent, 0);
             }//if()
+
         }else{
             Toast.makeText(this,"카메라 App 이 필요합니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -187,5 +233,6 @@ public class MainActivity extends AppCompatActivity
 
         imageView.setImageBitmap(bitmap);
     }
+
 
 }
