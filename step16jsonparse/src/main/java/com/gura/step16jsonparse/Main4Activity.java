@@ -40,6 +40,7 @@ public class Main4Activity extends AppCompatActivity
     EditText inputName, inputAddr;
     //ListView
     private ListView listView;
+    private String urlAddr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class Main4Activity extends AppCompatActivity
         listView=findViewById(R.id.listView);
         listView.setAdapter(adapter);
         //스프링 웹서버에 요청하기
-        String urlAddr="http://192.168.0.35:8865/spring05/android/member/list.do";
+        urlAddr="http://192.168.0.35:8865/spring05/android/member/list.do";
         Util.sendGetRequest(REQUEST_LIST, urlAddr, null, this);
         //ListView  에 아이템 클릭 리스너 등록
         listView.setOnItemClickListener(this);
@@ -67,7 +68,6 @@ public class Main4Activity extends AppCompatActivity
 
     @Override
     public void onSuccess(int requestId, Map<String, Object> result) {
-        String urlList="http://192.168.0.35:8865/spring05/android/member/list.do";
         //어떤 요청에 대한 결과인지 switch 문으로 분기한다.
         switch (requestId){
             case REQUEST_LIST:
@@ -76,11 +76,11 @@ public class Main4Activity extends AppCompatActivity
                 break;
             case REQUEST_DELETE:
                 //스프링 웹서버에 요청하기
-                Util.sendGetRequest(REQUEST_LIST, urlList, null, this);
+                Util.sendGetRequest(REQUEST_LIST, urlAddr, null, this);
                 break;
             case  REQUEST_INSERT:
                 //스프링 웹서버에 요청하기
-                Util.sendGetRequest(REQUEST_LIST, urlList, null, this);
+                Util.sendGetRequest(REQUEST_LIST, urlAddr, null, this);
                 break;
         }
     }
@@ -148,8 +148,7 @@ public class Main4Activity extends AppCompatActivity
     DialogInterface.OnClickListener listener=new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
-            String urlAddr="http://192.168.0.35:8865/spring05" +
-                    "/android/member/delete.do";
+            String urlAddr="http://192.168.0.35:8865/spring05/android/member/delete.do";
             //삭제할 회원의 번호를 Map 에 담고
             Map<String, String> map=new HashMap<>();
             map.put("num", Integer.toString(selectedNum));
