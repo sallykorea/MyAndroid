@@ -2,6 +2,7 @@ package com.gura.step09camera;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,6 +10,7 @@ import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -72,9 +74,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case R.id.uploadBtn:
-
                 uploadImage();
-
                 break;
 
         }
@@ -85,22 +85,34 @@ public class MainActivity extends AppCompatActivity
     public void uploadImage(){
         String myFile = absolutePath;
         Map<String,String> map = new HashMap<>();
-        map.put("writer", "gura");
-        String urlAddr ="http://192.168.0.26:8865/spring05/android/file/upload.do";
+        map.put("writer", "hi");
+        String urlAddr ="http://192.168.0.26:8865/spring05/android/image/upload.do";
+        String urlAddrTeacher ="http://192.168.0.15:8888/spring05/android/image/upload.do";
         Util.sendMultipartRequest(0,urlAddr,map, myFile,MainActivity.this);
     }
 
     @Override
     public void onSuccess(int requestId, Map<String, Object> result) {
-        String msg=(String)result.get("data");
-        Toast.makeText(this, "성공:"+msg, Toast.LENGTH_SHORT).show();
-
+        new AlertDialog.Builder(this)
+                .setMessage("업로드 되었습니다.")
+                .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Activity의 finish()(MainActivity의 멤버메소드)메소드를 호출해서 액티비티 종료시키기
+                        finish();
+                    }
+                })
+                .create()
+                .show();
     }
 
     @Override
     public void onFail(int requestId, Map<String, Object> result) {
-        String data=(String)result.get("data");
-        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(this)
+                .setMessage("업로드 실패!")
+                .setNeutralButton("확인", null)
+                .create()
+                .show();
     }
 
 

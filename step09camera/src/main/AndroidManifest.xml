@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gura.step09camera">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 인터넷 자원을 사용하겠다는 요청 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 인터넷 자원을 사용하겠다는 요청 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,22 +12,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"><!-- http 요청이 아니어도 된다는 퍼미션-->
-        <activity android:name=".MainActivity">
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- http 요청이 아니어도 된다는 퍼미션 -->
+        <activity android:name=".MainActivity">
+
+        </activity>
 
         <provider
-            android:authorities="com.gura.step09camera.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.gura.step09camera.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths"/>
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
         </provider>
     </application>
 
