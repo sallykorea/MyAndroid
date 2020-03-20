@@ -2,6 +2,7 @@ package com.gura.step17sqlitedb;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayAdapter<String> adapter;
     private List<String> stringList; //listView를 출력하기 위해 Adapter에 연결할 문자열 목록
     private List<TodoDto> todoList;//DB에 있는 실제 DATA를 가지고 있는 TodoDto 목록
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +53,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Button에 리스너 등록
         Button saveBtn=findViewById(R.id.saveBtn);
         Button deletBtn=findViewById(R.id.deleteBtn);
+        Button updateBtn=findViewById(R.id.updateBtn);
         saveBtn.setOnClickListener(this);
         deletBtn.setOnClickListener(this);
+        updateBtn.setOnClickListener(this);
         //모델 객체 생성
         stringList=new ArrayList<>();
         //adapter 객체 생성
@@ -70,8 +74,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.updateBtn:
+                index=listView.getCheckedItemPosition();
+                if(index==-1){ //선택된 셀이 없을 경우
+                    Toast.makeText(this, "수정할 셀을 선택하세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                SQLiteDatabase db3=helper.getWritableDatabase();
+                String sql3="SELECT *" +
+                        " FROM todo" +
+                        " WHERE num=?";
+                //삭제할 cell의 primary key
+                int num2=todoList.get(index).getNum();
+                String[] args3={Integer.toString(num2)};
+                Cursor result2=db3.rawQuery(sql3, args3);
+                TodoDto dto=null;
+                //반복문 돌면서 Cursor 객체에서 정보 읽어오기
+                while (result2.moveToNext()){
+                    //0번째 칼럼의 문자열 읽어오기
+                    int num=result2.getInt(0);
+                    //1번째 칼럼의 문자열 읽어오기
+                    String content=result2.getString(1);
+                    //2번째 칼럼의 문자열 읽어오기
+                    String regdate=result2.getString(2);
+                    //TodoDto 객체를 생성해서 번호, 내용, 날짜를 넣어주고
+                    dto=new TodoDto(num, content, regdate);
+                }
+                Intent intent=new Intent(this, DetailActivity.class);
+                intent.putExtra("todoDto", dto);
+                startActivity(intent);
+                break;
             case R.id.deleteBtn:
-                int index=listView.getCheckedItemPosition();
+                index=listView.getCheckedItemPosition();
                 if(index==-1){ //선택된 셀이 없을 경우
                     Toast.makeText(this, "삭제할 셀을 선택하세요", Toast.LENGTH_LONG).show();
                     return;

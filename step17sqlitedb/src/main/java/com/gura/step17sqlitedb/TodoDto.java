@@ -1,6 +1,8 @@
 package com.gura.step17sqlitedb;
 
-public class TodoDto {
+import java.io.Serializable;
+
+public class TodoDto implements Serializable{
     private int num;
     private String content;
     private String regdate;
