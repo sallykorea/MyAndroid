@@ -134,6 +134,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 db.execSQL(sql, args);
                 db.close();
 
+                Util.hideKeyboard(this);
+                inputText.setText("");
+                Util.releaseFocus(inputText);
+
                 showList();
                 break;
 
