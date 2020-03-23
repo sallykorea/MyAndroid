@@ -86,7 +86,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 SQLiteDatabase db3=helper.getWritableDatabase();
-                String sql3="SELECT *" +
+                /*
+                    [날짜 format 만들기]
+                    strftime("날짜형식", 날짜문자열, 'localtime')
+                    년 : %Y
+                    월 : %m
+                    일 : %d
+                    시 : %H
+                    분 : %M
+                    초 : %S
+                 */
+                String sql3="SELECT num, content, strftime(\"%Y년 %m월 %d일 %H시 %M분 %S초\",regdate)" + // "" 안에 또 ""가 들어갈때는 \" 로 표기해주어야한다.
                         " FROM todo" +
                         " WHERE num=?";
                 //삭제할 cell의 primary key
