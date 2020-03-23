@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
@@ -40,6 +41,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             -name
             만들어질 파일의 이름을 작성
+            파일하나를 만들어서 SQLlight 가 필요할때 마다 열어서 사용하는 것이다.
+
+            -factory
+            어플리케이션을 처음 인스톨 하자마자 어떤 복잡한 데이터를 갖고 있고 싶은 경우
 
             -version
             어떤 조건에서 version이 변경되게 할 수도 있다.
@@ -126,6 +131,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.saveBtn:
                 //1. 입력한 문자열을 읽어와서
                 String inputMsg=inputText.getText().toString();
+                if(TextUtils.isEmpty(inputMsg)){ //입력된 내용이 없을 경우
+                    Toast.makeText(this, "내용을 입력하세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 //2. todo 테이블에 저장한다.
                 SQLiteDatabase db=helper.getWritableDatabase();
                 Object[] args={inputMsg}; //전달할 DATA를 순서대로 담으면 SQL Query문에 자동으로 바인딩 된다.
@@ -158,9 +167,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /*
             selectionArgs
             SELECT 문에 WHERE 절이 들어가야된다면 selectionArgs에
-            Object[]로 전
+            Object[]로 전달하면 된다.
          */
-        Cursor result=db.rawQuery(sql, null);
+        Cursor result=db.rawQuery(sql, null); //Cursor == ResultSet(JDBC)
         //반복문 돌면서 Cursor 객체에서 정보 읽어오기
         while (result.moveToNext()){
             //0번째 칼럼의 문자열 읽어오기
