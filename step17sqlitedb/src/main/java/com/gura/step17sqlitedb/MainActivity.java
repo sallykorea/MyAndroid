@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             예를 들어 버튼을 눌렀을 때, version이 올라가게 설정을 해놓으면
             onCreate() 메소드 호출시 DBHelper 클래스의 onupgrate()메소드가 호출된다.
          */
-        helper=new DBHelper(this, "MyDB.sqlite", null, 1);
+        helper=new DBHelper(this, "MyDB.sqlite", null, 1); //SQLite app이 MyDB.sqlite 파일에 접근하여 사용한다.(확장자명은 반드시.sqlite가 아니어도됨)
         //UI의 참조값 얻어오기
         inputText=findViewById(R.id.inputText);
         listView=findViewById(R.id.listView);
