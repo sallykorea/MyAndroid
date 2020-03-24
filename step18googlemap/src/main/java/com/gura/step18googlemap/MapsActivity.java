@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,5 +51,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         options.title("Acorn Academy"); //마커의 제목
         //지도상에 마커 표시하기
         mMap.addMarker(options);
+
+        //지정한 위치와 배율로 카메라 이동하기
+        CameraUpdate cu=CameraUpdateFactory.newLatLngZoom(acorn,15);
+        mMap.animateCamera(cu);
     }
 }
