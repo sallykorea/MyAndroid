@@ -12,7 +12,9 @@
     Package name:
     76:9A:AF:E0:9F:F7:76:78:C4:F9:14:2C:BE:BD:6B:C2:64:72:10:F9
 
-    SHA-1 certificate fingerprint: (구글맵을 사용할 수 있는 인증 key)
+    SHA-1 certificate fingerprint:
+    (구글맵을 사용할 수 있는 인증 key, 지문이 다른 컴퓨터에서는 또 다른 key를 발급받아야한다.
+    안드로이드 스튜디오를 설치한 컴퓨터의 아이피에 따라 각각 다른 key가 발급되기 때문이다.)
     76:9A:AF:E0:9F:F7:76:78:C4:F9:14:2C:BE:BD:6B:C2:64:72:10:F9
 
     Alternatively, follow the directions here:
