@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">step19locationinfo</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
