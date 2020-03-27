@@ -161,4 +161,32 @@ fun main(){
     }
     foo(2) //파라미터를 변경하면서 테스트 해보세요
 
+    println()
+    /*
+        ["""]
+        - 여러줄의 문자열을 더블 따옴표 세개로 편하게 붙여서 쓸 수 있다.
+     */
+    //In Java
+    var sqlInJava="SELECT *" +
+            " FROM member" +
+            " WHERE num=1"
+
+    var sqlInKotlin="""
+        SELECT *
+        FROM member
+        WHERE num=1
+    """.trimIndent() // trimIndent() 들여쓰기를 없애주는 메소드(콘솔창에 출력해서 확인해보세요)
+
+    println("-------\"\"\"--------")
+    println(sqlInKotlin)
+
+    println()
+    /*
+        [$를 literal 값으로 쓰고 싶은 경우(문자열로 쓰고 싶은 경우)]
+     */
+    val price = """
+        ${'$'}9.99
+    """.trimIndent()
+    println("-------'$'를 literal 값--------")
+    println(price)
 }
