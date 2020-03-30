@@ -10,8 +10,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/beer" />
+            <option value="$PROJECT_DIR$/constraintlayout" />
             <option value="$PROJECT_DIR$/drawpanel" />
             <option value="$PROJECT_DIR$/hello2" />
+            <option value="$PROJECT_DIR$/motionlayout" />
             <option value="$PROJECT_DIR$/myapp" />
             <option value="$PROJECT_DIR$/step01layout" />
             <option value="$PROJECT_DIR$/step02activity" />
