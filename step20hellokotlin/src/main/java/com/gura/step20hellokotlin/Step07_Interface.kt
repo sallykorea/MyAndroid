@@ -71,4 +71,8 @@ fun main(){
     var m1:MultiClass= MultiClass()
     var m2:Weapon= MultiClass()
     var m3:Remocon= MultiClass()
+
+    //부모 type 참조값을 자식 type 변수에 casting 해서 대입해야한다.
+    var m6:MultiClass=m2 as MultiClass
+    var m7:MultiClass=m3 as MultiClass
 }
