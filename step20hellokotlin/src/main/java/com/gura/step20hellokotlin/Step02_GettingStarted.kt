@@ -13,7 +13,7 @@ fun sum(a: Int, b: Int): Int { // 코틀린에서는 다 참조 데이터 타입
 fun sum2(a: String, b: Int) = a + b
 /*
     코틀린에서는 리턴 값이 없는 경우에도 반드시 값을 리턴하는데 이를 의미 없는 값이라고 한다.
-    : Unit 을 명시하면 리턴되는 값이 의미가 없다는 것이다.(javascript의 undefined)
+    : Unit 을 명시하면 리턴되는 값이 의미가 없다는 것이다.(javascript의 undefined | Java의 void)
     : Unit 은 생략가능하다.
  */
 fun printSum(a: Int, b: Int): Unit {
