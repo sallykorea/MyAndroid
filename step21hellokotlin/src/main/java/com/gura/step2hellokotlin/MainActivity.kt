@@ -1,19 +1,26 @@
 package com.gura.step2hellokotlin
 
+import android.app.Dialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemLongClickListener {
+
+
 
     //필드(property)
     //var inputMsg:EditText?=null // null로 property를 초기화 하기
     lateinit var inputMsg:EditText // lateinit(예약어|keyword)를 이용해 초기화(init)를 나중에 할 수 있다.
     lateinit var adapter: ArrayAdapter<String>
     lateinit var msgList: MutableList<String>
+    var selectedIndex:Int=0
 
     override fun onClick(v: View?) {
 
@@ -35,13 +42,39 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 adapter.notifyDataSetChanged()
             }
 
-            else->{
-
-            }
         }
 
+    }
 
+    var listener=object : DialogInterface.OnClickListener{
+        override fun onClick(dialog: DialogInterface?, which: Int) {
+            when(which){
+                Dialog.BUTTON_POSITIVE -> {
+                    var item=msgList.get(selectedIndex)
+                    //this@MainActivity 는 마치 java의 Mainactivity.this 와 같다.
+                    val intent=Intent(this@MainActivity, DetailActivity::class.java)
+                    intent.putExtra("msg", item)
+                    startActivity(intent)
+                }
+                Dialog.BUTTON_NEGATIVE -> {
 
+                }
+            }
+
+        }
+    }
+
+    override fun onItemLongClick(parent: AdapterView<*>?, view: View?, i: Int, id: Long): Boolean {
+        selectedIndex=i
+
+        AlertDialog.Builder(this)
+                .setTitle("자세히보기로 이동하시겠습니까?")
+                .setNegativeButton("아니오", listener)
+                .setPositiveButton("네",listener)
+                .create()
+                .show()
+
+        return false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +96,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //ListView에 어답터 연결하기
         //findViewById<ListView>(R.id.myListView).adapter=adapter // setAdapter(adapter) 과 같다.
         myListView.adapter=adapter
+        myListView.setOnItemLongClickListener(this)
         /*
             [ Kotlin에서 view의 참조 값을 얻어내는 방법 ] - findViewById<ListView>(R.id.myListView)
             Kotlin에서는 import kotlinx.android.synthetic.main.activity_main.* .xml문서에 있는 모든 view 들을 import 해서 사용할 수 있게 해준다.
