@@ -67,13 +67,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
     override fun onItemLongClick(parent: AdapterView<*>?, view: View?, i: Int, id: Long): Boolean {
         selectedIndex=i
 
-        AlertDialog.Builder(this)
+        with(AlertDialog.Builder(this)){
+            setTitle("자세히보기로 이동하시겠습니까?")
+            setNegativeButton("아니오",listener)
+            setPositiveButton("네",listener)
+            create()
+            show()
+        }
+        /*AlertDialog.Builder(this)
                 .setTitle("자세히보기로 이동하시겠습니까?")
                 .setNegativeButton("아니오", listener)
                 .setPositiveButton("네",listener)
                 .create()
                 .show()
-
+*/
         return false
     }
 
