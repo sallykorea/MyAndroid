@@ -27,4 +27,26 @@ fun main(){
     }
 
     println("$jumsu 를 학점으로 환산하면 $result3")
+
+    println(calc2(75))
+
+}
+
+/*
+
+fun calc(jumsu:Int):String{
+  return "xxx"
+}
+
+을 줄여서 작성하면
+*/
+fun calc(jumsu:Int) = "xxx" //줄여서 작성하면 return type을 작성하지 않아도 알아서 inferre (추론)한다.
+
+//함수를 호출하면서 정수를 전달하면 when 구문을 수행한 결과를 return 해준다.
+fun calc2(jumsu: Int) = when{
+    jumsu >= 90 -> "A 입니다."
+    jumsu >= 80 -> "B 입니다."
+    jumsu >= 70 -> "C 입니다."
+    jumsu >= 60 -> "D 입니다."
+    else -> "F 입니다."
 }
