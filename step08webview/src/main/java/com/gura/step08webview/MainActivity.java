@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }
+    } // class end
     //변수
     private static final String TYPE_IMAGE = "image/*";
     private static final int INPUT_FILE_REQUEST_CODE = 1;
