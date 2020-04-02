@@ -16,4 +16,15 @@ fun main(){
     println("$num 은 $result")
     println("$num 은 $result2")
 
+    //when문 식
+    var jumsu=85 //여기 숫자를 바꿔가며 테스트 해보세요.
+    var result3=when{
+        jumsu >= 90 -> "A 입니다."
+        jumsu >= 80 -> "B 입니다."
+        jumsu >= 70 -> "C 입니다."
+        jumsu >= 60 -> "D 입니다."
+        else -> "F 입니다."
+    }
+
+    println("$jumsu 를 학점으로 환산하면 $result3")
 }
