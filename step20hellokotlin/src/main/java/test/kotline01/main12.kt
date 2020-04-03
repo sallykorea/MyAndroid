@@ -6,7 +6,7 @@ fun main(){
 
     for (num in 0..255){
         //num에 해당하는 이진수의 문자
-        var bin=Integer.toBinaryString(num)
+        var bin=Integer.toBinaryString(num) //toBinaryString() : 정수를 이진수로 바꿔주는 메소드
         //map에 저장하기
         map1.put(num, bin)
     }
